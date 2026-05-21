@@ -10,28 +10,21 @@ public class Pathfinder : MonoBehaviour
         Instance = this;
     }
 
-    public List<TileNode> FindPath(
-        Vector3Int startPos,
-        Vector3Int targetPos)
+    public List<TileNode> FindPath( Vector3Int startPos, Vector3Int targetPos)
     {
-        TileNode startNode =
-            GridManager.Instance.GetNode(startPos);
+        TileNode startNode =GridManager.Instance.GetNode(startPos);
 
-        TileNode targetNode =
-            GridManager.Instance.GetNode(targetPos);
+        TileNode targetNode =GridManager.Instance.GetNode(targetPos);
 
-        List<TileNode> openList =
-            new List<TileNode>();
+        List<TileNode> openList = new List<TileNode>();
 
-        HashSet<TileNode> closedList =
-            new HashSet<TileNode>();
+        HashSet<TileNode> closedList = new HashSet<TileNode>();
 
         openList.Add(startNode);
 
         while (openList.Count > 0)
         {
-            TileNode current =
-                openList[0];
+            TileNode current =openList[0];
 
             foreach (TileNode node in openList)
             {
@@ -53,26 +46,20 @@ public class Pathfinder : MonoBehaviour
             foreach (TileNode neighbor in
                     GetNeighbors(current))
             {
-                if (!neighbor.walkable ||
-                    closedList.Contains(neighbor))
+                if (!neighbor.walkable || closedList.Contains(neighbor))
                     continue;
 
                 int cost =
                     current.gCost + 1;
 
-                if (cost < neighbor.gCost
-                    ||
-                    !openList.Contains(neighbor))
+                if (cost < neighbor.gCost || !openList.Contains(neighbor))
                 {
                     neighbor.gCost = cost;
 
                     neighbor.hCost =
-                        Distance(
-                            neighbor,
-                            targetNode);
+                        Distance(neighbor, targetNode);
 
-                    neighbor.parent =
-                        current;
+                    neighbor.parent =current;
 
                     if (!openList.Contains(neighbor))
                         openList.Add(neighbor);
@@ -95,12 +82,10 @@ public class Pathfinder : MonoBehaviour
         while (current != start)
         {
             path.Add(current);
-
             current = current.parent;
         }
 
         path.Reverse();
-
         return path;
     }
 
@@ -108,18 +93,13 @@ public class Pathfinder : MonoBehaviour
         TileNode a,
         TileNode b)
     {
-        return Mathf.Abs(
-            a.position.x - b.position.x)
-            +
-            Mathf.Abs(
-            a.position.y - b.position.y);
+        return Mathf.Abs(a.position.x - b.position.x)+Mathf.Abs( a.position.y - b.position.y);
     }
 
     List<TileNode> GetNeighbors(
         TileNode node)
     {
-        List<TileNode> neighbors =
-            new();
+        List<TileNode> neighbors = new();
 
         Vector3Int[] dirs =
         {
@@ -131,9 +111,7 @@ public class Pathfinder : MonoBehaviour
 
         foreach (var dir in dirs)
         {
-            TileNode neighbor =
-                GridManager.Instance.GetNode(
-                    node.position + dir);
+            TileNode neighbor =GridManager.Instance.GetNode( node.position + dir);
 
             if (neighbor != null)
                 neighbors.Add(neighbor);
