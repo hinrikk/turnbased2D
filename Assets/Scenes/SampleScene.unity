@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 688971167}
   - component: {fileID: 688971166}
   - component: {fileID: 688971168}
+  - component: {fileID: 688971169}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -565,6 +566,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98aa24739c797947b95fadfb1c0873b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pathfinder
+--- !u!114 &688971169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688971165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7a31c8354824b4ca0050db014200dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PathPreview
+  markerPrefab: {fileID: 8252931234240375228, guid: 9d73557f3f69a4b44aabe4c9e7a5ac21, type: 3}
 --- !u!1 &713354527
 GameObject:
   m_ObjectHideFlags: 0

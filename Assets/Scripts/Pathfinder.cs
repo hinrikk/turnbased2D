@@ -13,11 +13,8 @@ public class Pathfinder : MonoBehaviour
     public List<TileNode> FindPath( Vector3Int startPos, Vector3Int targetPos)
     {
         TileNode startNode =GridManager.Instance.GetNode(startPos);
-
         TileNode targetNode =GridManager.Instance.GetNode(targetPos);
-
         List<TileNode> openList = new List<TileNode>();
-
         HashSet<TileNode> closedList = new HashSet<TileNode>();
 
         openList.Add(startNode);
@@ -33,14 +30,11 @@ public class Pathfinder : MonoBehaviour
             }
 
             openList.Remove(current);
-
             closedList.Add(current);
 
             if (current == targetNode)
             {
-                return RetracePath(
-                    startNode,
-                    targetNode);
+                return RetracePath(startNode, targetNode);
             }
 
             foreach (TileNode neighbor in
@@ -49,24 +43,16 @@ public class Pathfinder : MonoBehaviour
                 if (!neighbor.walkable || closedList.Contains(neighbor))
                     continue;
 
-                int cost =
-                    current.gCost + 1;
-
-                if (cost < neighbor.gCost || !openList.Contains(neighbor))
-                {
+                int cost = current.gCost + 1;
+                if (cost < neighbor.gCost || !openList.Contains(neighbor)){
                     neighbor.gCost = cost;
-
-                    neighbor.hCost =
-                        Distance(neighbor, targetNode);
-
+                    neighbor.hCost = Distance(neighbor, targetNode);
                     neighbor.parent =current;
-
                     if (!openList.Contains(neighbor))
                         openList.Add(neighbor);
                 }
             }
         }
-
         return null;
     }
 
@@ -74,8 +60,7 @@ public class Pathfinder : MonoBehaviour
         TileNode start,
         TileNode end)
     {
-        List<TileNode> path =
-            new();
+        List<TileNode> path = new();
 
         TileNode current = end;
 
@@ -89,15 +74,12 @@ public class Pathfinder : MonoBehaviour
         return path;
     }
 
-    int Distance(
-        TileNode a,
-        TileNode b)
+    int Distance(TileNode a,TileNode b)
     {
         return Mathf.Abs(a.position.x - b.position.x)+Mathf.Abs( a.position.y - b.position.y);
     }
 
-    List<TileNode> GetNeighbors(
-        TileNode node)
+    List<TileNode> GetNeighbors(TileNode node)
     {
         List<TileNode> neighbors = new();
 

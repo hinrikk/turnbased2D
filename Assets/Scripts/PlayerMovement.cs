@@ -12,21 +12,21 @@ public class PlayerMovement : MonoBehaviour
         if (moving)
             return;
 
+
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector3 world = Camera.main.ScreenToWorldPoint( new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+        world.z = 0;
+
+        Vector3Int cell = GridManager.Instance.groundTilemap.WorldToCell(world);
+        Vector3Int startCell = GridManager.Instance.groundTilemap.WorldToCell(transform.position);
+
+        List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
+        List<TileNode> previewPath = Pathfinder.Instance.FindPath(startCell ,cell);
+
+        PathPreview.Instance.ShowPath(previewPath);
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-
-            Vector3 world =
-            Camera.main.ScreenToWorldPoint(
-                    new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)
-                );
-
-            world.z = 0;
-
-            Vector3Int cell = GridManager.Instance.groundTilemap.WorldToCell(world);
-            Vector3Int startCell = GridManager.Instance.groundTilemap.WorldToCell(transform.position);
-            List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
-
             if (path != null)
             {
                 StartCoroutine(
@@ -45,8 +45,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 target = node.position;
    
-            while (
-                Vector3.Distance(  transform.position, target) > 0.05f)
+            while ( Vector3.Distance(  transform.position, target) > 0.05f)
             {
                 transform.position = Vector3.MoveTowards( transform.position, target, 3f * Time.deltaTime);
                 yield return null;
