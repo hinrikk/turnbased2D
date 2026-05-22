@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         world.z = 0;
 
         Vector3Int cell = GridManager.Instance.groundTilemap.WorldToCell(world);
-        Vector3Int startCell = GridManager.Instance.groundTilemap.WorldToCell(transform.position);
+        Vector3Int startCell = Vector3Int.CeilToInt(transform.position);
 
         List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
         List<TileNode> previewPath = Pathfinder.Instance.FindPath(startCell ,cell);

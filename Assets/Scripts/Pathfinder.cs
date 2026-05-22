@@ -13,7 +13,9 @@ public class Pathfinder : MonoBehaviour
     public List<TileNode> FindPath( Vector3Int startPos, Vector3Int targetPos)
     {
         TileNode startNode =GridManager.Instance.GetNode(startPos);
+        Debug.Log($"start: {startNode.position}");
         TileNode targetNode =GridManager.Instance.GetNode(targetPos);
+        Debug.Log($"target: {targetNode.position}");
         List<TileNode> openList = new List<TileNode>();
         HashSet<TileNode> closedList = new HashSet<TileNode>();
 
