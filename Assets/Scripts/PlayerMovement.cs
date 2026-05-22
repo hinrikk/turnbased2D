@@ -18,8 +18,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 world = Camera.main.ScreenToWorldPoint( new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
         world.z = 0;
 
-        Vector3Int cell = GridManager.Instance.groundTilemap.WorldToCell(world);
-        Vector3Int startCell = Vector3Int.CeilToInt(transform.position);
+        Vector3Int cell = Vector3Int.FloorToInt(world);
+        Vector3Int startCell = Vector3Int.RoundToInt(transform.position);
+
+        Debug.Log($"Player Start Cell {startCell}");
+        Debug.Log($"Player Cell {cell}");
 
         List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
         List<TileNode> previewPath = Pathfinder.Instance.FindPath(startCell ,cell);
