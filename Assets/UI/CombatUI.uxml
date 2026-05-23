@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/CombatUI.uss?fileID=7433441132597879392&amp;guid=00e0cb1bfca66db42a6edfa0f43b5de9&amp;type=3#CombatUI"/>
+    <ui:Button text="Switch Mode" name="switch-player-mode" style="width: 114px;"/>
+</ui:UXML>

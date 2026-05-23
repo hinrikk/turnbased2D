@@ -4,29 +4,63 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.PlayerSettings;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     bool moving;
+    public static PlayerMovement Instance;
+
+    public enum PlayerMode
+    {
+        Move,
+        Attack
+    }
+    public PlayerMode mode = PlayerMode.Move;
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Update()
     {
         if (moving)
             return;
 
+        if (mode == PlayerMode.Attack)
+        {
+            Debug.Log("Combat mode activated!");
+        }
 
+        // Get Mouse Input
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 world = Camera.main.ScreenToWorldPoint( new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
         world.z = 0;
-
-        Vector3Int cell = Vector3Int.FloorToInt(world);
+        Vector3Int targetCell = Vector3Int.FloorToInt(world);
         Vector3Int startCell = Vector3Int.RoundToInt(transform.position);
 
-        TileNode node = GridManager.Instance.GetNode(cell);
-        Debug.Log($"node {node.position} {node.occupied}");
 
-        List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
-        List<TileNode> previewPath = Pathfinder.Instance.FindPath(startCell ,cell);
+        if(mode == PlayerMode.Move)
+        {
+            HandleMove(startCell, targetCell);
+        }
+        if (mode == PlayerMode.Attack)
+        {
+            PathPreview.Instance.ClearPath();
+        }
 
+    }
+
+    void HandleMove(Vector3Int start, Vector3Int target)
+    {
+        TileNode node = GridManager.Instance.GetNode(target);
+        List<TileNode> path = Pathfinder.Instance.FindPath(start, target);
+
+        if (path == null) // Invalid node, or no possible path
+        {
+            return;
+        }
+
+        List<TileNode> previewPath = Pathfinder.Instance.FindPath(start, target);
         PathPreview.Instance.ShowPath(previewPath);
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -39,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     IEnumerator Move(
         List<TileNode> path)
@@ -57,5 +92,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         moving = false;
+    }
+
+    public void ToggleAttackMode()
+    {
+        if (mode == PlayerMode.Move)
+        {
+            mode = PlayerMode.Attack;
+        }
+        else
+        {
+            mode = PlayerMode.Move;
+        }
+
     }
 }
