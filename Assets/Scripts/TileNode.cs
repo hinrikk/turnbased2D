@@ -5,6 +5,7 @@ public class TileNode
     public Vector3Int position;
 
     public bool walkable;
+    public bool occupied;
 
     public int gCost;
     public int hCost;

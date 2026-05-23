@@ -16,12 +16,10 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        GenerateGrid(); // Has to before Start, otherwhise overrides occupied nodes 
     }
 
-    void Start()
-    {
-        GenerateGrid();
-    }
+
 
     void GenerateGrid()
     {

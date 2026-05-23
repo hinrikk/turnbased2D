@@ -13,9 +13,7 @@ public class Pathfinder : MonoBehaviour
     public List<TileNode> FindPath( Vector3Int startPos, Vector3Int targetPos)
     {
         TileNode startNode =GridManager.Instance.GetNode(startPos);
-        Debug.Log($"start: {startNode.position}");
         TileNode targetNode =GridManager.Instance.GetNode(targetPos);
-        Debug.Log($"target: {targetNode.position}");
         List<TileNode> openList = new List<TileNode>();
         HashSet<TileNode> closedList = new HashSet<TileNode>();
 
@@ -42,7 +40,8 @@ public class Pathfinder : MonoBehaviour
             foreach (TileNode neighbor in
                     GetNeighbors(current))
             {
-                if (!neighbor.walkable || closedList.Contains(neighbor))
+                // Defines when node is unreachable
+                if (!neighbor.walkable || neighbor.occupied || closedList.Contains(neighbor))
                     continue;
 
                 int cost = current.gCost + 1;

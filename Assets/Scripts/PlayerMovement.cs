@@ -21,8 +21,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3Int cell = Vector3Int.FloorToInt(world);
         Vector3Int startCell = Vector3Int.RoundToInt(transform.position);
 
-        Debug.Log($"Player Start Cell {startCell}");
-        Debug.Log($"Player Cell {cell}");
+        TileNode node = GridManager.Instance.GetNode(cell);
+        Debug.Log($"node {node.position} {node.occupied}");
 
         List<TileNode> path = Pathfinder.Instance.FindPath(startCell, cell);
         List<TileNode> previewPath = Pathfinder.Instance.FindPath(startCell ,cell);
