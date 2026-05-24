@@ -6,6 +6,7 @@ public class TileNode
 
     public bool walkable;
     public bool occupied;
+    public Enemy occupant = null;
 
     public int gCost;
     public int hCost;

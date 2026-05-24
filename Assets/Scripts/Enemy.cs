@@ -13,14 +13,14 @@ public class Enemy : MonoBehaviour
         Debug.Log($"Enemy Pos: {cell}");
         currentNode = GridManager.Instance.GetNode(cell);
         currentNode.occupied = true;
+        currentNode.occupant = this;
     }
 
     public void TakeDamage(int amount)
     {
         health -= amount;
 
-        Debug.Log(
-            $"Enemy HP: {health}");
+        Debug.Log($"Enemy HP: {health}");
 
         if (health <= 0)
         {
@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         currentNode.occupied = false;
+        currentNode.occupant = null;
         Destroy(gameObject);
     }
 }

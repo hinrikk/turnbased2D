@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.PlayerSettings;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class PlayerMovement : MonoBehaviour
 {
     bool moving;
     public static PlayerMovement Instance;
+    public int attackRange = 1;
 
     public enum PlayerMode
     {
@@ -26,11 +29,6 @@ public class PlayerMovement : MonoBehaviour
         if (moving)
             return;
 
-        if (mode == PlayerMode.Attack)
-        {
-            Debug.Log("Combat mode activated!");
-        }
-
         // Get Mouse Input
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 world = Camera.main.ScreenToWorldPoint( new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
@@ -46,8 +44,30 @@ public class PlayerMovement : MonoBehaviour
         if (mode == PlayerMode.Attack)
         {
             PathPreview.Instance.ClearPath();
+            HandleAttack(startCell, targetCell);
         }
 
+    }
+
+    void HandleAttack(Vector3Int player, Vector3Int cursor)
+    {
+        TileNode node = GridManager.Instance.GetNode(cursor);
+        if (node.occupant == null)
+        {
+            return;
+        }
+
+        if (Mathf.Abs(Vector3.Distance(node.position, player)) > attackRange)
+        {
+            return;
+        }
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Enemy enemy = node.occupant;
+            enemy.TakeDamage(1);
+
+        }
     }
 
     void HandleMove(Vector3Int start, Vector3Int target)
