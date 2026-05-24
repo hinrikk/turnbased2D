@@ -6,19 +6,26 @@ using UnityEngine.InputSystem;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
+public enum PlayerMode
+{
+    Move,
+    Attack
+}
+public enum PlayerAttackType
+{
+    BaseAttack,
+    RangeAttack
+}
 
 public class PlayerMovement : MonoBehaviour
 {
     bool moving;
     public static PlayerMovement Instance;
-    public int attackRange = 1;
-
-    public enum PlayerMode
-    {
-        Move,
-        Attack
-    }
+    public int baseAttackRange = 1;
+    public int rangeAttackRange = 10;
     public PlayerMode mode = PlayerMode.Move;
+    public PlayerAttackType attackType = PlayerAttackType.BaseAttack;
+
     void Awake()
     {
         Instance = this;
@@ -52,13 +59,18 @@ public class PlayerMovement : MonoBehaviour
     void HandleAttack(Vector3Int player, Vector3Int cursor)
     {
         TileNode node = GridManager.Instance.GetNode(cursor);
-        if (node.occupant == null)
+        if ((node == null) || (node.occupant == null))
         {
             return;
         }
 
-        if (Mathf.Abs(Vector3.Distance(node.position, player)) > attackRange)
+        int currentAttackRange = (attackType == PlayerAttackType.BaseAttack) ? baseAttackRange : rangeAttackRange;
+        float rangeToTarget = Mathf.Abs(Vector3.Distance(node.position, player));
+
+        if (rangeToTarget > currentAttackRange)
+            
         {
+            Debug.Log($"target: {rangeToTarget}, currentAttackRange:{currentAttackRange}");
             return;
         }
 
@@ -66,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Enemy enemy = node.occupant;
             enemy.TakeDamage(1);
-
         }
     }
 
@@ -124,6 +135,12 @@ public class PlayerMovement : MonoBehaviour
         {
             mode = PlayerMode.Move;
         }
+
+    }
+
+    public void ChangeAttackType(PlayerAttackType buttonType)
+    {
+        attackType = buttonType;
 
     }
 }
