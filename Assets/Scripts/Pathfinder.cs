@@ -14,6 +14,11 @@ public class Pathfinder : MonoBehaviour
     {
         TileNode startNode =GridManager.Instance.GetNode(startPos);
         TileNode targetNode =GridManager.Instance.GetNode(targetPos);
+
+        if (startNode == null || targetNode == null)
+        {
+            return null;
+        }
         List<TileNode> openList = new List<TileNode>();
         HashSet<TileNode> closedList = new HashSet<TileNode>();
 
