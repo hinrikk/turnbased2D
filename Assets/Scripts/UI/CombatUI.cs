@@ -27,11 +27,24 @@ public class CombatUI : MonoBehaviour
 
     }
 
-
+    void Start()
+    {
+        Controller.Instance.OnPlayerModeChanged += RefreshUI;
+        RefreshUI();
+    }
 
     void RefreshUI()
     {
-        Debug.Log("Mode changed");
+        if (Controller.Instance.mode == PlayerMode.Move)
+        {
+            moveButton.SetEnabled(false);
+            attackButton.SetEnabled(true);
+        }
+        else if (Controller.Instance.mode == PlayerMode.Attack)
+        {
+            moveButton.SetEnabled(true);
+            attackButton.SetEnabled(false);
+        }
     }
 
     void OnBaseAttackPressed()
