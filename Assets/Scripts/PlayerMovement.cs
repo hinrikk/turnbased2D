@@ -17,22 +17,19 @@ public enum PlayerAttackType
     RangeAttack
 }
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : Unit{
     bool moving;
-    public static PlayerMovement Instance;
     public int baseAttackRange = 1;
     public int rangeAttackRange = 10;
     public PlayerMode mode = PlayerMode.Move;
     public PlayerAttackType attackType = PlayerAttackType.BaseAttack;
 
-    void Awake()
-    {
-        Instance = this;
-    }
 
     void Update()
     {
+        if (!isMyTurn)
+            return;
+
         if (moving)
             return;
 
@@ -143,4 +140,6 @@ public class PlayerMovement : MonoBehaviour
         attackType = buttonType;
 
     }
+
+
 }
