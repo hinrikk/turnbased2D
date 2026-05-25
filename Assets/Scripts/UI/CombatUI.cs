@@ -1,36 +1,37 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CombatUI : MonoBehaviour
 {
-    private Button combatButton;
+    private Button moveButton;
+    private Button attackButton;
     private Button baseAttackButton;
     private Button rangeAttackButton;
     private Button skipTurn;
     void Awake()
     {
-        var root =
-            GetComponent<UIDocument>()
-            .rootVisualElement;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        combatButton = root.Q<Button>("switch-player-mode");
+        moveButton = root.Q<Button>("player-move");
+        attackButton = root.Q<Button>("player-attack");
         baseAttackButton = root.Q<Button>("player-base-attack");
         rangeAttackButton = root.Q<Button>("player-range-attack");
         skipTurn = root.Q<Button>("player-skip-turn");
 
-        combatButton.clicked += OnCombatPressed;
+        attackButton.clicked += OnAttackPressed;
+        moveButton.clicked += OnMovePressed;
         baseAttackButton.clicked += OnBaseAttackPressed;
         rangeAttackButton.clicked += OnRangeAttackPressed;
         skipTurn.clicked += OnSkipTurnPressed;
+
     }
 
-    void OnCombatPressed()
+
+
+    void RefreshUI()
     {
-        Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is PlayerMovement player)
-        {
-            player.ToggleAttackMode();
-        }
+        Debug.Log("Mode changed");
     }
 
     void OnBaseAttackPressed()
@@ -39,7 +40,7 @@ public class CombatUI : MonoBehaviour
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
         if(currentUnit is PlayerMovement player)
         {
-            player.ChangeAttackType(PlayerAttackType.BaseAttack);
+            Controller.Instance.ChangeAttackType(PlayerAttackType.BaseAttack);
         }
     }
 
@@ -49,7 +50,7 @@ public class CombatUI : MonoBehaviour
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
         if (currentUnit is PlayerMovement player)
         {
-            player.ChangeAttackType(PlayerAttackType.RangeAttack);
+            Controller.Instance.ChangeAttackType(PlayerAttackType.RangeAttack);
         }
     }
 
@@ -57,5 +58,23 @@ public class CombatUI : MonoBehaviour
     {
         Debug.Log("Skip Turn");
         TurnManager.Instance.EndCurrentTurn();
+    }
+
+    void OnAttackPressed()
+    {
+        Unit currentUnit = TurnManager.Instance.getCurrentUnit();
+        if (currentUnit is PlayerMovement player)
+        {
+            Controller.Instance.SwitchAttackMode(PlayerMode.Attack);
+        }
+    }
+
+    void OnMovePressed()
+    {
+        Unit currentUnit = TurnManager.Instance.getCurrentUnit();
+        if (currentUnit is PlayerMovement player)
+        {
+            Controller.Instance.SwitchAttackMode(PlayerMode.Move);
+        }
     }
 }

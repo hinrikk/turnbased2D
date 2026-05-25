@@ -5,7 +5,8 @@
             <ui:Label text="Turn Display&#10;" name="TurnDisplay"/>
         </ui:VisualElement>
         <ui:VisualElement name="ControlPanel" style="flex-grow: 0; align-content: flex-end; align-self: center; align-items: center; background-position-y: center; flex-direction: row; bottom: 0; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
-            <ui:Button text="Switch Mode" name="switch-player-mode" style="width: 114px; align-self: auto; background-position-y: center;"/>
+            <ui:Button text="Move" name="player-move"/>
+            <ui:Button text="Attack" name="player-attack"/>
             <ui:Button text="Range Attack" name="player-range-attack"/>
             <ui:Button text="Base Attack" name="player-base-attack"/>
             <ui:Button text="Skip Turn" name="player-skip-turn"/>

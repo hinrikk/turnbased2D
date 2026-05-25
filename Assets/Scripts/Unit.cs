@@ -4,6 +4,9 @@ public class Unit : MonoBehaviour
 {
     public bool isMyTurn = false;
     SpriteRenderer spriteRenderer;
+    public bool moving;
+    public int baseAttackRange = 1;
+    public int rangeAttackRange = 10;
 
     void Awake()
     {
