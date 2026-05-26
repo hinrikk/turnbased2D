@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public int health = 10;
     TileNode currentNode;
 
     void Start()
@@ -16,22 +15,4 @@ public class Enemy : MonoBehaviour
         currentNode.occupant = this;
     }
 
-    public void TakeDamage(int amount)
-    {
-        health -= amount;
-
-        Debug.Log($"Enemy HP: {health}");
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    void Die()
-    {
-        currentNode.occupied = false;
-        currentNode.occupant = null;
-        Destroy(gameObject);
-    }
 }

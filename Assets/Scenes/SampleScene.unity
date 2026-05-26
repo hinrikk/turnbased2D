@@ -166,11 +166,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   isMyTurn: 0
+  spriteRenderer: {fileID: 0}
   moving: 0
   baseAttackRange: 1
   rangeAttackRange: 10
-  mode: 0
-  attackType: 0
+  health: 10
+  skills:
+  - {fileID: 8574119365636829852, guid: a9eb2cc94e8133e4d926ab7b37a99ecd, type: 3}
 --- !u!50 &82783691
 Rigidbody2D:
   serializedVersion: 5
@@ -320,11 +322,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   isMyTurn: 0
+  spriteRenderer: {fileID: 0}
   moving: 0
   baseAttackRange: 1
   rangeAttackRange: 10
-  mode: 0
-  attackType: 0
+  health: 10
+  skills:
+  - {fileID: 8574119365636829852, guid: a9eb2cc94e8133e4d926ab7b37a99ecd, type: 3}
 --- !u!50 &373088946
 Rigidbody2D:
   serializedVersion: 5
@@ -1614,7 +1618,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376f24ef64331a3428db7d045e6f10a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  isMyTurn: 0
+  spriteRenderer: {fileID: 0}
+  moving: 0
+  baseAttackRange: 1
+  rangeAttackRange: 10
   health: 10
+  skills: []
 --- !u!4 &935470095
 Transform:
   m_ObjectHideFlags: 0
@@ -1894,6 +1904,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51202bfabee4f814e8683cc9087e040f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller
+  mode: 0
+  attackType: 0
+  isPlayerTurn: 0
 --- !u!1 &1559875727
 GameObject:
   m_ObjectHideFlags: 0

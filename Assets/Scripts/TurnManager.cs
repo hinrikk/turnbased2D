@@ -16,6 +16,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         units.AddRange(FindObjectsByType<Unit>());
+        units.RemoveAll(unit => unit is Enemy);
         Debug.Log($"Playerunits: {units.Count}");
         units[0].StartTurn();
     }

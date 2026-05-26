@@ -31,8 +31,8 @@ public class PlayerMovement : Unit {
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Enemy enemy = node.occupant;
-            enemy.TakeDamage(1);
+            Unit targetUnit = node.occupant;
+            targetUnit.TakeDamage(1);
         }
     }
 

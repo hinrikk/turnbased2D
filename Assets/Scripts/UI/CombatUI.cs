@@ -9,6 +9,7 @@ public class CombatUI : MonoBehaviour
     private Button baseAttackButton;
     private Button rangeAttackButton;
     private Button skipTurn;
+    VisualElement skillContainer;
     void Awake()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
@@ -25,6 +26,8 @@ public class CombatUI : MonoBehaviour
         rangeAttackButton.clicked += OnRangeAttackPressed;
         skipTurn.clicked += OnSkipTurnPressed;
 
+        skillContainer =  root.Q<VisualElement>("SkillContainer");
+
     }
 
     void Start()
@@ -35,15 +38,33 @@ public class CombatUI : MonoBehaviour
 
     void RefreshUI()
     {
+        Unit currentUnit = TurnManager.Instance.getCurrentUnit();
+        if (currentUnit is Enemy)// For debugging; Enemies not yet playable
+            return;
+
+
+        // Update Skills of current Unit
+        skillContainer.Clear();
+        foreach (Skill skill in currentUnit.skills)
+        {
+            Button button = new Button();
+            button.text = skill.skillName;
+            skillContainer.Add(button);
+        }
+
         if (Controller.Instance.mode == PlayerMode.Move)
         {
             moveButton.SetEnabled(false);
             attackButton.SetEnabled(true);
+            baseAttackButton.SetEnabled(false);
+            rangeAttackButton.SetEnabled(false);
         }
         else if (Controller.Instance.mode == PlayerMode.Attack)
         {
             moveButton.SetEnabled(true);
             attackButton.SetEnabled(false);
+            rangeAttackButton.SetEnabled(true);
+            baseAttackButton.SetEnabled(true);
         }
     }
 

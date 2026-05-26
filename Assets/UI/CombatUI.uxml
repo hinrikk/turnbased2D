@@ -9,6 +9,7 @@
             <ui:Button text="Attack" name="player-attack"/>
             <ui:Button text="Range Attack" name="player-range-attack"/>
             <ui:Button text="Base Attack" name="player-base-attack"/>
+            <ui:VisualElement name="SkillContainer" style="flex-grow: 1;"/>
             <ui:Button text="Skip Turn" name="player-skip-turn"/>
         </ui:VisualElement>
     </ui:VisualElement>
