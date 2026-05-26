@@ -22,10 +22,8 @@ public class PlayerMovement : Unit {
         int currentAttackRange = (attackType == PlayerAttackType.BaseAttack) ? baseAttackRange : rangeAttackRange;
         float rangeToTarget = Mathf.Abs(Vector3.Distance(node.position, player));
 
-        if (rangeToTarget > currentAttackRange)
-            
+        if (rangeToTarget > currentAttackRange)    
         {
-            Debug.Log($"target: {rangeToTarget}, currentAttackRange:{currentAttackRange}");
             return;
         }
 
@@ -63,8 +61,12 @@ public class PlayerMovement : Unit {
     public void HandleSkill(Unit caster, Vector3Int cursor, Skill skill)
     {
         TileNode targetNode = GridManager.Instance.GetNode(cursor);
-        Debug.Log("Handle Skill");
         skill.Preview(caster, targetNode);
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            skill.Use(caster, targetNode);
+        }
     }
 
 

@@ -67,7 +67,6 @@ public class Controller : MonoBehaviour
         }
         if(mode == PlayerMode.Cast)
         {
-            Debug.Log("Casting");
             PathPreview.Instance.ClearPath();
             currentControllableUnit.HandleSkill(currentUnit, targetCell, playerSkill);
         }

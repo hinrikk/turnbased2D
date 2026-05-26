@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HealSkill : Skill
 {
+    public int amount = 1;
     public override void Preview(Unit caster, TileNode target)
     {
         PathPreview.Instance.ClearPath();
@@ -11,8 +12,6 @@ public class HealSkill : Skill
         if(target.occupant == null)
             return;
         target.occupant.spriteRenderer.color = Color.green;
-
-        Debug.Log("Preview Heal");
     }
 
     public override void Use(
@@ -22,6 +21,7 @@ public class HealSkill : Skill
         if (target?.occupant == null)
             return;
 
-        Debug.Log("Heal");
+        target.occupant.health += amount;
+        Debug.Log("Target Healed");
     }
 }
