@@ -10,7 +10,7 @@ public class HealSkill : Skill
             return;
         if(target.occupant == null)
             return;
-        target.occupant.spriteRenderer.color = Color.red;
+        target.occupant.spriteRenderer.color = Color.green;
 
         Debug.Log("Preview Heal");
     }

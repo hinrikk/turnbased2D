@@ -6,7 +6,8 @@ using System;
 public enum PlayerMode
 {
     Move,
-    Attack
+    Attack,
+    Cast,
 }
 public enum PlayerAttackType
 {
@@ -19,6 +20,7 @@ public class Controller : MonoBehaviour
     public static Controller Instance;
     public PlayerMode mode = PlayerMode.Move;
     public PlayerAttackType attackType = PlayerAttackType.BaseAttack;
+    public Skill playerSkill;
     public bool isPlayerTurn;
     public event Action OnPlayerModeChanged;
 
@@ -63,6 +65,12 @@ public class Controller : MonoBehaviour
             PathPreview.Instance.ClearPath();
             currentControllableUnit.HandleAttack(startCell, targetCell, attackType);
         }
+        if(mode == PlayerMode.Cast)
+        {
+            Debug.Log("Casting");
+            PathPreview.Instance.ClearPath();
+            currentControllableUnit.HandleSkill(currentUnit, targetCell, playerSkill);
+        }
 
     }
 
@@ -76,6 +84,12 @@ public class Controller : MonoBehaviour
     {
         attackType = buttonType;
 
+    }
+
+    public void SwitchPlayerSkill(Skill s)
+    {
+        playerSkill = s;
+        OnPlayerModeChanged?.Invoke();
     }
 
 }

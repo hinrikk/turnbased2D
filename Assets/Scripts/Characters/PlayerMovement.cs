@@ -60,6 +60,13 @@ public class PlayerMovement : Unit {
         }
     }
 
+    public void HandleSkill(Unit caster, Vector3Int cursor, Skill skill)
+    {
+        TileNode targetNode = GridManager.Instance.GetNode(cursor);
+        Debug.Log("Handle Skill");
+        skill.Preview(caster, targetNode);
+    }
+
 
     IEnumerator Move(
         List<TileNode> path)

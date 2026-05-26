@@ -172,7 +172,7 @@ MonoBehaviour:
   rangeAttackRange: 10
   health: 10
   skills:
-  - {fileID: 8574119365636829852, guid: a9eb2cc94e8133e4d926ab7b37a99ecd, type: 3}
+  - {fileID: 5649260281146423044, guid: 1f18a4f7a279ca34dad3ef215e6e7031, type: 3}
 --- !u!50 &82783691
 Rigidbody2D:
   serializedVersion: 5
@@ -328,7 +328,7 @@ MonoBehaviour:
   rangeAttackRange: 10
   health: 10
   skills:
-  - {fileID: 8574119365636829852, guid: a9eb2cc94e8133e4d926ab7b37a99ecd, type: 3}
+  - {fileID: 5649260281146423044, guid: 1f18a4f7a279ca34dad3ef215e6e7031, type: 3}
 --- !u!50 &373088946
 Rigidbody2D:
   serializedVersion: 5

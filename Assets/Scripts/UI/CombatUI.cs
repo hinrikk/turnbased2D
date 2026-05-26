@@ -43,12 +43,16 @@ public class CombatUI : MonoBehaviour
             return;
 
 
-        // Update Skills of current Unit
+        // Update Skills in UI dynamically
         skillContainer.Clear();
         foreach (Skill skill in currentUnit.skills)
         {
             Button button = new Button();
             button.text = skill.skillName;
+            button.clicked += () =>
+            {
+                OnSkillButtonPressed(skill);
+            };
             skillContainer.Add(button);
         }
 
@@ -110,5 +114,12 @@ public class CombatUI : MonoBehaviour
         {
             Controller.Instance.SwitchAttackMode(PlayerMode.Move);
         }
+    }
+
+    void OnSkillButtonPressed(Skill skill)
+    {
+        Debug.Log($"{skill.skillName}");
+        Controller.Instance.SwitchPlayerSkill(skill);
+        Controller.Instance.SwitchAttackMode(PlayerMode.Cast);
     }
 }
