@@ -173,6 +173,7 @@ MonoBehaviour:
   health: 10
   skills:
   - {fileID: 5649260281146423044, guid: 1f18a4f7a279ca34dad3ef215e6e7031, type: 3}
+  - {fileID: 801748518430724899, guid: da3b4ba27b6dc0a42be1ea0acf0cb9b4, type: 3}
 --- !u!50 &82783691
 Rigidbody2D:
   serializedVersion: 5
@@ -329,6 +330,7 @@ MonoBehaviour:
   health: 10
   skills:
   - {fileID: 5649260281146423044, guid: 1f18a4f7a279ca34dad3ef215e6e7031, type: 3}
+  - {fileID: 801748518430724899, guid: da3b4ba27b6dc0a42be1ea0acf0cb9b4, type: 3}
 --- !u!50 &373088946
 Rigidbody2D:
   serializedVersion: 5
@@ -696,6 +698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547821ad4b4a2c14cb9bfa9e037bb269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PreviewManager
+  activeHighlights: []
+  tileHighlightPrefab: {fileID: 8252931234240375228, guid: 9d73557f3f69a4b44aabe4c9e7a5ac21, type: 3}
 --- !u!1 &713354527
 GameObject:
   m_ObjectHideFlags: 0

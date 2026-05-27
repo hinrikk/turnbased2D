@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,8 +19,6 @@ public class GridManager : MonoBehaviour
         Instance = this;
         GenerateGrid(); // Has to before Start, otherwhise overrides occupied nodes 
     }
-
-
 
     void GenerateGrid()
     {
@@ -53,5 +52,25 @@ public class GridManager : MonoBehaviour
             return null;
 
         return grid[pos.x, pos.y];
+    }
+
+    public List<TileNode> GetNodesInRadius(Vector3Int center,int radius)
+    {
+        List<TileNode> nodes = new();
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int y = -radius; y <= radius; y++)
+            {
+                Vector3Int pos = center + new Vector3Int(x, y, 0);
+                TileNode node =  GetNode(pos);
+
+                if (node != null)
+                {
+                    nodes.Add(node);
+                }
+            }
+        }
+
+        return nodes;
     }
 }

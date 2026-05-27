@@ -61,6 +61,7 @@ public class PlayerMovement : Unit {
     public void HandleSkill(Unit caster, Vector3Int cursor, Skill skill)
     {
         TileNode targetNode = GridManager.Instance.GetNode(cursor);
+        Debug.Log($"{skill.skillName}");
         skill.Preview(caster, targetNode);
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
