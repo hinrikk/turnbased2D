@@ -10,22 +10,29 @@ public class Unit : MonoBehaviour
     public int rangeAttackRange = 10;
     public int health = 10;
     public List<Skill> skills = new List<Skill>();
+    TileNode currentNode;
 
     void Awake()
     {
+
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        this.OccupyNode();
     }
 
     public virtual void StartTurn()
     {
         isMyTurn = true;
-        spriteRenderer.color = Color.red;
+        PreviewManager.Instance.PreviewUnit(this, Color.red);
     }
 
     public virtual void EndTurn()
     {
         isMyTurn = false;
-        spriteRenderer.color = Color.white;
+        PreviewManager.Instance.Clear();
     }
 
     public void TakeDamage(int amount)
@@ -38,11 +45,18 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void OccupyNode()
+    {
+        Vector3Int cell = Vector3Int.RoundToInt(transform.position);
+        currentNode = GridManager.Instance.GetNode(cell);
+        currentNode.occupied = false;
+        currentNode.occupant = this;
+    }
+
     void Die()
     {
         Vector3Int cell = Vector3Int.RoundToInt(transform.position);
-        Debug.Log($"Enemy Pos: {cell}");
-        TileNode currentNode = GridManager.Instance.GetNode(cell);
+        currentNode = GridManager.Instance.GetNode(cell);
         currentNode.occupied = false;
         currentNode.occupant = null;
         Destroy(gameObject);

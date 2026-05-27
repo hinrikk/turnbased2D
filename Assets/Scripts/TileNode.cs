@@ -17,4 +17,10 @@ public class TileNode
     {
         get { return gCost + hCost; }
     }
+
+    public void ClearNode()
+    {
+        this.occupant = null;
+        this.occupied = false;
+    }
 }

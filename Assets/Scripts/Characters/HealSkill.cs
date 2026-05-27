@@ -7,11 +7,12 @@ public class HealSkill : Skill
     {
         PathPreview.Instance.ClearPath();
 
-        if (target == null)
+        if (target?.occupant == null)
+        {
+            PreviewManager.Instance.Clear();
             return;
-        if(target.occupant == null)
-            return;
-        target.occupant.spriteRenderer.color = Color.green;
+        }
+        PreviewManager.Instance.PreviewUnit(target.occupant, Color.green);
     }
 
     public override void Use(

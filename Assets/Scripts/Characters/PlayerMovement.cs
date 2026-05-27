@@ -52,7 +52,7 @@ public class PlayerMovement : Unit {
             if (path != null)
             {
                 StartCoroutine(
-                    Move(path)
+                    Move(node, path)
                 );
             }
         }
@@ -70,20 +70,24 @@ public class PlayerMovement : Unit {
     }
 
 
-    IEnumerator Move(
-        List<TileNode> path)
+    IEnumerator Move(TileNode sourceNode, List<TileNode> path)
     {
         moving = true;
+        TileNode currentNode = sourceNode;
 
         foreach (TileNode node in path)
         {
+            // Move towards target
             Vector3 target = node.position;
-   
             while ( Vector3.Distance(  transform.position, target) > 0.05f)
             {
                 transform.position = Vector3.MoveTowards( transform.position, target, 3f * Time.deltaTime);
                 yield return null;
             }
+
+            currentNode.ClearNode(); // Clear Node that Unit left
+            OccupyNode(); // Occupy node the Unit entered
+            currentNode = node; // Next iteration step current target node will be the source node
         }
 
         moving = false;
