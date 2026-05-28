@@ -9,18 +9,22 @@ public class Unit : MonoBehaviour
     public int baseAttackRange = 1;
     public int rangeAttackRange = 10;
     public int health = 10;
+    public int maxHealth = 10;
     public List<Skill> skills = new List<Skill>();
+    public HealthBar healthBar;
     TileNode currentNode;
 
     void Awake()
     {
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
     private void Start()
     {
         this.OccupyNode();
+        healthBar.SetHealth(health, maxHealth);
     }
 
     public virtual void StartTurn()
@@ -38,11 +42,18 @@ public class Unit : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
-        Debug.Log($"Enemy HP: {health}");
+        healthBar.SetHealth( health, maxHealth);
         if (health <= 0)
         {
             Die();
         }
+    }
+
+    public void Heal(int amount)
+    {
+        health += amount;
+        health = Mathf.Min(health, maxHealth);
+        healthBar.SetHealth(health, maxHealth);
     }
 
     public void OccupyNode()

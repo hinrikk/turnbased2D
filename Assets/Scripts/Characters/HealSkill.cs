@@ -22,7 +22,7 @@ public class HealSkill : Skill
         if (target?.occupant == null)
             return;
 
-        target.occupant.health += amount;
+        target.occupant.Heal(amount);
         Debug.Log("Target Healed");
     }
 }
