@@ -1,9 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/CombatUI.uss?fileID=7433441132597879392&amp;guid=00e0cb1bfca66db42a6edfa0f43b5de9&amp;type=3#CombatUI"/>
     <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: space-between; align-items: center;">
-        <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-size: auto 100%;">
-            <ui:Label text="Turn Display&#10;" name="TurnDisplay"/>
-        </ui:VisualElement>
+        <ui:VisualElement name="turn-container" style="flex-grow: 0; background-size: auto 100%; flex-direction: row; margin-right: 0;"/>
         <ui:VisualElement name="ControlPanel" style="flex-grow: 0; align-content: flex-end; align-self: center; align-items: center; background-position-y: center; flex-direction: row; bottom: 0; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
             <ui:Button text="Move" name="player-move"/>
             <ui:Button text="Attack" name="player-attack"/>

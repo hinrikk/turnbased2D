@@ -70,13 +70,15 @@ public class CombatUI : MonoBehaviour
             rangeAttackButton.SetEnabled(true);
             baseAttackButton.SetEnabled(true);
         }
+
+        TurnUI.Instance.RefreshTurnUI();
     }
 
     void OnBaseAttackPressed()
     {
         Debug.Log("Base Attack");
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if(currentUnit is PlayerMovement player)
+        if(currentUnit is CharacterMovement player)
         {
             Controller.Instance.ChangeAttackType(PlayerAttackType.BaseAttack);
         }
@@ -86,7 +88,7 @@ public class CombatUI : MonoBehaviour
     {
         Debug.Log("Range Attack");
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is PlayerMovement player)
+        if (currentUnit is CharacterMovement player)
         {
             Controller.Instance.ChangeAttackType(PlayerAttackType.RangeAttack);
         }
@@ -101,7 +103,7 @@ public class CombatUI : MonoBehaviour
     void OnAttackPressed()
     {
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is PlayerMovement player)
+        if (currentUnit is CharacterMovement player)
         {
             Controller.Instance.SwitchAttackMode(PlayerMode.Attack);
         }
@@ -110,7 +112,7 @@ public class CombatUI : MonoBehaviour
     void OnMovePressed()
     {
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is PlayerMovement player)
+        if (currentUnit is CharacterMovement player)
         {
             Controller.Instance.SwitchAttackMode(PlayerMode.Move);
         }

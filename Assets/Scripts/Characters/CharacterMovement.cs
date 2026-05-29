@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 using System;
 
 
-public class PlayerMovement : Unit {
+public class CharacterMovement : Unit {
 
 
     public void HandleAttack(Vector3Int player, Vector3Int cursor, PlayerAttackType attackType)
@@ -51,9 +51,7 @@ public class PlayerMovement : Unit {
         {
             if (path != null)
             {
-                StartCoroutine(
-                    Move(node, path)
-                );
+                StartCoroutine(Move(node, path));
             }
         }
     }

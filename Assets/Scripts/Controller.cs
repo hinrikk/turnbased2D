@@ -35,14 +35,14 @@ public class Controller : MonoBehaviour
 
         //
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is not PlayerMovement)
+        if (currentUnit is not CharacterMovement)
         {
             isPlayerTurn = false;
             return;
         }
 
         isPlayerTurn = true;
-        PlayerMovement currentControllableUnit = currentUnit as PlayerMovement;
+        CharacterMovement currentControllableUnit = currentUnit as CharacterMovement;
 
 
         if (currentControllableUnit.moving)
