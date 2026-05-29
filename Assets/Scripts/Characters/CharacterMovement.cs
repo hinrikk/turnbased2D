@@ -13,6 +13,7 @@ public class CharacterMovement : Unit {
 
     public void HandleAttack(Vector3Int player, Vector3Int cursor, PlayerAttackType attackType)
     {
+        PreviewManager.Instance.Clear();
         TileNode node = GridManager.Instance.GetNode(cursor);
         if ((node == null) || (node.occupant == null))
         {
@@ -27,9 +28,11 @@ public class CharacterMovement : Unit {
             return;
         }
 
+        Unit targetUnit = node.occupant;
+        PreviewManager.Instance.PreviewUnit(targetUnit, Color.red);
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Unit targetUnit = node.occupant;
             targetUnit.TakeDamage(1);
         }
     }

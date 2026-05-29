@@ -10,8 +10,11 @@ public class CombatUI : MonoBehaviour
     private Button rangeAttackButton;
     private Button skipTurn;
     VisualElement skillContainer;
+    public static CombatUI Instance;
     void Awake()
     {
+        Instance = this;
+
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         moveButton = root.Q<Button>("player-move");
@@ -36,7 +39,7 @@ public class CombatUI : MonoBehaviour
         RefreshUI();
     }
 
-    void RefreshUI()
+    public void RefreshUI()
     {
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
         if (currentUnit is Enemy)// For debugging; Enemies not yet playable

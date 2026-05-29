@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,16 +14,17 @@ public class Unit : MonoBehaviour
     public List<Skill> skills = new List<Skill>();
     public HealthBar healthBar;
     TileNode currentNode;
+    public event Action OnUnitChanged;
 
     void Awake()
     {
-
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         healthBar = GetComponentInChildren<HealthBar>();
     }
 
     private void Start()
     {
+        this.OnUnitChanged += CombatUI.Instance.RefreshUI;
         this.OccupyNode();
         healthBar.SetHealth(health, maxHealth);
     }
@@ -47,6 +49,7 @@ public class Unit : MonoBehaviour
         {
             Die();
         }
+        OnUnitChanged?.Invoke();
     }
 
     public void Heal(int amount)
@@ -54,6 +57,7 @@ public class Unit : MonoBehaviour
         health += amount;
         health = Mathf.Min(health, maxHealth);
         healthBar.SetHealth(health, maxHealth);
+        OnUnitChanged?.Invoke();
     }
 
     public void OccupyNode()
@@ -62,6 +66,7 @@ public class Unit : MonoBehaviour
         currentNode = GridManager.Instance.GetNode(cell);
         currentNode.occupied = false;
         currentNode.occupant = this;
+        OnUnitChanged?.Invoke();
     }
 
     void Die()
@@ -70,6 +75,7 @@ public class Unit : MonoBehaviour
         currentNode = GridManager.Instance.GetNode(cell);
         currentNode.occupied = false;
         currentNode.occupant = null;
+        OnUnitChanged?.Invoke();
         Destroy(gameObject);
     }
 }
