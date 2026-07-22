@@ -42,9 +42,10 @@ public class CombatUI : MonoBehaviour
     public void RefreshUI()
     {
         Unit currentUnit = TurnManager.Instance.getCurrentUnit();
-        if (currentUnit is Enemy)// For debugging; Enemies not yet playable
-            return;
 
+        if (currentUnit == null) {
+            return;
+        }
 
         // Update Skills in UI dynamically
         skillContainer.Clear();

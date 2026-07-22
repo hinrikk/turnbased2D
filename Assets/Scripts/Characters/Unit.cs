@@ -33,6 +33,11 @@ public class Unit : MonoBehaviour
     {
         isMyTurn = true;
         PreviewManager.Instance.PreviewUnit(this, Color.red);
+
+        if(this is Enemy)
+        {
+            TurnManager.Instance.EndCurrentTurn();
+        }
     }
 
     public virtual void EndTurn()
@@ -43,6 +48,7 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        Debug.Log("Damage!");
         health -= amount;
         healthBar.SetHealth( health, maxHealth);
         if (health <= 0)
@@ -75,6 +81,7 @@ public class Unit : MonoBehaviour
         currentNode = GridManager.Instance.GetNode(cell);
         currentNode.occupied = false;
         currentNode.occupant = null;
+        TurnManager.Instance.unitQueue.Remove(this);
         OnUnitChanged?.Invoke();
         Destroy(gameObject);
     }

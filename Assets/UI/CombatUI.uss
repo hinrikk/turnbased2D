@@ -1,3 +1,5 @@
 :root {
-
+    -unity-font-definition:
+        resource("Assets/Fonts/CormorantGaramond-Bold.ttf");
 }
+

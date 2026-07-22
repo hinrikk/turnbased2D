@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
-    public List<Unit> units =  new();
+    public List<Unit> unitQueue = new();
     public int currentIndex = 0;
 
     void Awake()
@@ -15,27 +16,30 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        units.AddRange(FindObjectsByType<Unit>());
-        units.RemoveAll(unit => unit is Enemy);
-        Debug.Log($"Playerunits: {units.Count}");
-        units[0].StartTurn();
+        unitQueue.AddRange(FindObjectsByType<Unit>());
+        Debug.Log($"PlayerunitQueue: {unitQueue.Count}");
+        unitQueue[0].StartTurn();
     }
 
     public void EndCurrentTurn()
     {
-        units[currentIndex].EndTurn();
+        unitQueue[currentIndex].EndTurn();
         currentIndex++;
 
-        if (currentIndex >= units.Count)
+        if (currentIndex >= unitQueue.Count)
         {
             currentIndex = 0;
         }
 
-        units[currentIndex].StartTurn();
+        unitQueue[currentIndex].StartTurn();
     }
 
     public Unit getCurrentUnit()
     {
-        return units[currentIndex];
+        Debug.Log($"current index: {currentIndex}, length: {unitQueue.Count}");
+        if(unitQueue.Count == 0) {
+            return null;
+        }
+        return unitQueue[currentIndex];
     }
 }

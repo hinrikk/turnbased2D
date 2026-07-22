@@ -18,7 +18,7 @@ public class TurnUI : MonoBehaviour
     {
         turnContainer.Clear();
 
-        foreach (Unit unit in TurnManager.Instance.units)
+        foreach (Unit unit in TurnManager.Instance.unitQueue)
         {
             VisualElement entry = turnEntryTemplate.Instantiate();
             Label name = entry.Q<Label>("character-name");
